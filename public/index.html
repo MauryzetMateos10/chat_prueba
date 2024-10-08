@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica Mini WhatsApp</title>
+    <link rel="stylesheet" href="/styles.css">  
+    <script src="/socket.js"></script>
+</head>
+<body>
+    <div id="panel-bienvenida">
+        <h2>Ingrese su nombre de usuario y contraseña</h2>
+        <input type="text" id="persona" placeholder="Ingrese tu usuario">
+        <input type="password" id="contraseña" placeholder="Ingrese la contraseña">
+        <button onclick="ingresarAlChat()">Ingresar</button>
+        <button onclick="registrarUsuario()">Registrar</button> <!-- Botón para registrar usuario -->
+    </div>
+
+    <div id="app-chat" style="display: none;">
+        <h2 class="nube box">Chat en vivo</h2>
+        <div id="output"></div>
+        <div id="escribiendo-mensaje"></div>
+        <input type="text" id="usuario" placeholder="Usuario" disabled>
+        <input type="text" id="mensaje" placeholder="Escribe tu mensaje aquí">
+        <button id="enviar">Enviar</button>
+        <div id="usuarios-en-linea">
+            <h3>Usuarios en línea:</h3>
+            <ul id="lista-usuarios"></ul>
+        </div>
+    </div>
+
+    <script src="/chat.js"></script>
+</body>
+</html>
