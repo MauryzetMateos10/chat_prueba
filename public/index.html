@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Práctica Mini WhatsApp</title>
+    
+    <!-- Importación de jQuery desde CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Tu archivo de estilos -->
     <link rel="stylesheet" href="/styles.css">  
+
+    <!-- Archivo para manejo del socket -->
     <script src="/socket.js"></script>
 </head>
 <body>
@@ -29,6 +36,34 @@
         </div>
     </div>
 
+    <!-- Contenedor para mostrar el resultado de la solicitud AJAX -->
+    <div id="result"></div>
+
+    <!-- Script que maneja la funcionalidad del chat -->
     <script src="/chat.js"></script>
+
+    <!-- Función para hacer la solicitud AJAX y obtener el UUID -->
+    <script>
+        function getUuid() {
+            $.ajax({
+                url: "http://127.0.0.1/api/get-uuid",  // URL de la API para obtener el UUID
+                type: 'GET',
+                success: function (res) {
+                    console.log(res);  // Muestra la respuesta en la consola
+                    $('#result').html(res);  // Muestra la respuesta en el div con id 'result'
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $('#result').html(`Error: ${xhr.status} ${thrownError}`);  // Muestra el error en el div con id 'result'
+                }
+            });
+        }
+
+        // Solo para probar que jQuery está cargado correctamente
+        $(document).ready(function() {
+            console.log("jQuery está funcionando correctamente.");
+        });
+    </script>
 </body>
 </html>
+
+
