@@ -3,7 +3,7 @@ const socket = require('socket.io');
 const mongoose = require('mongoose');
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 // Conectar a MongoDB
 mongoose.connect('mongodb://localhost/chatDB', { useNewUrlParser: true, useUnifiedTopology: true })
