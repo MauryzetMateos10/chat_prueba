@@ -1,9 +1,28 @@
 const express = require('express');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
+const http = require('http');
+const uuidv4 = require('uuid/v4'); // Importar uuidv4
 
 const app = express();
-const port = process.env.PORT || 3000;
+
+// Servidor HTTP
+const serverHttp = http.createServer(app);
+serverHttp.listen(process.env.HTTP_PORT, process.env.IP);
+serverHttp.on('listening', () => console.info(`Notes App running at http://${process.env.IP}:${process.env.HTTP_PORT}`));
+
+// Contenido estático
+app.use(express.static('./public'));
+
+// API
+app.get('/api/get-uuid', function (req, res) {
+    res.send(uuidv4()); // Generar UUID
+});
+
+// 404
+app.get('*', function (req, res) {
+    res.status(404).send('Error 404 - Recurso no encontrado');
+});
 
 // Conectar a MongoDB
 mongoose.connect('mongodb://localhost/chatDB', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -28,11 +47,9 @@ const MensajeSchema = new mongoose.Schema({
 const Mensaje = mongoose.model('Mensaje', MensajeSchema);
 
 // Iniciar servidor
-const server = app.listen(port, '0.0.0.0', () => {
-    console.log(`Servidor escuchando en puerto ${port}...`);
+const server = app.listen(process.env.PORT || 3000, '0.0.0.0', () => {
+    console.log(`Servidor escuchando en puerto ${process.env.PORT || 3000}...`);
 });
-
-app.use(express.static('public'));
 
 // Configurar socket.io
 const io = socket(server);
